@@ -1,0 +1,224 @@
+
+
+//Merge sort
+public class LinkedList
+{
+    
+    public void MergeSort()
+    {
+        if (Head == null || Head.Next == null)
+        {
+            return;
+        }
+
+       
+        Node mid = GetMiddleNode();
+        Node leftHalf = Head;
+        Node rightHalf = mid.Next;
+
+        
+        mid.Next = null;
+
+        
+        MergeSort(leftHalf);
+        MergeSort(rightHalf);
+
+        
+        Head = Merge(leftHalf, rightHalf);
+    }
+
+    private Node GetMiddleNode()
+    {
+        Node slow = Head;
+        Node fast = Head.Next;
+
+        while (fast != null && fast.Next != null)
+        {
+            slow = slow.Next;
+            fast = fast.Next.Next;
+        }
+
+        return slow;
+    }
+
+    private Node Merge(Node left, Node right)
+    {
+        Node mergedHead = null;
+        Node current = null;
+
+        while (left != null && right != null)
+        {
+            if (string.Compare(left.Data, right.Data) <= 0)
+            {
+                if (mergedHead == null)
+                {
+                    mergedHead = current = left;
+                }
+                else
+                {
+                    current.Next = left;
+                    current = current.Next;
+                }
+                left = left.Next;
+            }
+            else
+            {
+                if (mergedHead == null)
+                {
+                    mergedHead = current = right;
+                }
+                else
+                {
+                    current.Next = right;
+                    current = current.Next;
+                }
+                right = right.Next;
+            }
+        }
+
+        
+        if (left != null)
+        {
+            current.Next = left;
+        }
+        else if (right != null)
+        {
+            current.Next = right;
+        }
+
+        return mergedHead;
+    }
+}
+
+//Bubble Sort
+
+public class LinkedList
+{
+    
+
+    public void SortBubble()
+    {
+        if (Head == null || Head.Next == null)
+        {
+            return; 
+        }
+
+        for (int i = 0; i < count - 1; i++)
+        {
+            bool swapped = false;
+            Node current = Head;
+            Node next = current.Next;
+
+            while (next != null)
+            {
+                if (string.Compare(current.Data, next.Data) > 0)
+                {
+                    SwapNodes(current, next);
+                    swapped = true;
+                }
+
+                current = current.Next;
+                next = current?.Next;
+            }
+
+            
+            if (!swapped)
+            {
+                break;
+            }
+        }
+    }
+
+    private void SwapNodes(Node node1, Node node2)
+    {
+        string temp = node1.Data;
+        node1.Data = node2.Data;
+        node2.Data = temp;
+    }
+}
+
+
+// Quick Sort
+
+public class LinkedList
+{
+
+    public void SortQuickSort()
+    {
+        if (Head == null || Head.Next == null)
+        {
+            return;
+        }
+        SortQuickSortHelper(Head, null, null);
+    }
+
+    private void SortQuickSortHelper(Node current, Node left, Node right)
+    {
+        if (current == null)
+        {
+            return;
+        }
+
+        Node pivot = current;
+        Node pivotLeft = null;
+        Node pivotRight = null;
+
+        Node temp = current.Next;
+        while (temp != null)
+        {
+            if (string.Compare(temp.Data, pivot.Data) < 0)
+            {
+                if (pivotLeft == null)
+                {
+                    pivotLeft = temp;
+                }
+                else
+                {
+                    pivotLeft.Next = temp;
+                    pivotLeft = pivotLeft.Next;
+                }
+            }
+            else
+            {
+                if (pivotRight == null)
+                {
+                    pivotRight = temp;
+                }
+                else
+                {
+                    pivotRight.Next = temp;
+                    pivotRight = pivotRight.Next;
+                }
+            }
+            temp = temp.Next;
+        }
+
+        if (pivotLeft != null)
+        {
+            pivotLeft.Next = null;
+        }
+
+        if (pivotRight != null)
+        {
+            pivotRight.Next = null;
+        }
+
+        SortQuickSortHelper(Head, null, pivotLeft);
+        SortQuickSortHelper(pivot.Next, pivotLeft, pivotRight);
+
+        
+        if (left != null)
+        {
+            left.Next = pivot;
+        }
+        else
+        {
+            Head = pivot;
+        }
+
+        if (pivotRight != null)
+        {
+            pivot.Next = pivotRight;
+        }
+    }
+}
